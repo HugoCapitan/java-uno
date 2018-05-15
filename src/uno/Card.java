@@ -13,6 +13,9 @@ public class Card {
     this.color = color;
   }
 
+  public String getColor() { return this.color; }
+  public String getNumber() { return Integer.toString(this.number); }
+
   public void printCard() {
     System.out.print("+");
     printMultiple('-', width);

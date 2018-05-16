@@ -14,41 +14,7 @@ public class Card {
   }
 
   public String getColor() { return this.color; }
-  public String getNumber() { return Integer.toString(this.number); }
-
-  public void printCard() {
-    System.out.print("+");
-    printMultiple('-', width);
-    System.out.println("+");
-
-    System.out.print("| " + this.number);
-    printMultiple(' ', width - 2);
-    System.out.println("|");
-
-    System.out.print("|");
-    printMultiple(' ', width);
-    System.out.println("|");
-
-    System.out.println("| " + this.color + " |");
-
-    System.out.print("|");
-    printMultiple(' ', width);
-    System.out.println("|");
-
-    System.out.print("|");
-    printMultiple(' ', width - 2);
-    System.out.println(this.number + " |");
-
-    System.out.print("+");
-    printMultiple('-', width);
-    System.out.println("+");
-  }
-
-  private static void printMultiple(char Character, int n) {
-    if (n > 0) {
-      System.out.print(Character);
-      printMultiple(Character, n - 1);
-    }
-  }
+  public String getNumber() { return this.number; }
+  public String getNumberS() { return Integer.toString(this.number); }
 
 }

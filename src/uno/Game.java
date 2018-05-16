@@ -12,51 +12,54 @@ public class Game {
   private static Game uniqueInstance;
 
   private List<Player> players = new ArrayList<>();
-  private List<Card> cards     = new ArrayList<>();
+  private List<Card> stack     = new ArrayList<>();
 
   private Game(int nPlayers) {
     Scanner in = new Scanner(System.in);
 
     for (int i = 0; i <= 9; i++) {
-      this.cards.add( new Card(i, "Yellow") );
-      this.cards.add( new Card(i, "Red") );
-      this.cards.add( new Card(i, "Blue") );
-      this.cards.add( new Card(i, "Green") );
+      this.stack.add( new Card(i, "Yellow") );
+      this.stack.add( new Card(i, "Red") );
+      this.stack.add( new Card(i, "Blue") );
+      this.stack.add( new Card(i, "Green") );
     }
 
     this.shuffleStack();
 
-    for (int i = 0; i < nPlayers; i++) {
-      System.out.println("Enter name for player #" + (i + 1));
-      String playerName = in.next();
-      List<Card> playerCards = new ArrayList<Card>(this.cards.subList(0, 7));
-      this.cards.subList(0, 7).clear();
-      Player newPlayer = new Player(playerName, playerCards);
-      players.add(i, newPlayer);
-    } 
+    Printer.printGreeting();
 
+    for (int i = 0; i < nPlayers; i++) { this.addPlayer(); }
 
-    System.out.println("========== Game Ready! ==========");
-    System.out.println("||||| These are your cards: |||||");
-    for (Player p : this.players) {
-      System.out.println("Player " + p.getName() + ":");
-      p.printCards();
-    }
+  }
+
+  public void addPlayer() {
+    Player newPlayer;
+    int playerNumber = this.players.size() + 1;
+    List<Card> playerCards = new ArrayList<Card>(this.stack.subList(0, 7));
+
+    System.out.println("Enter name for player #" + playerNumber);
+    newPlayer = new Player(in.next(), playerCards);
+    players.add(playerNumber, newPlayer);
+
+    this.stack.subList(0, 7).clear();
   }
 
   public List<Player> getPlayers() { return this.players; }
 
   public void shuffleStack() {
-    int n = this.cards.size();
+    int n = this.stack.size();
     Random random = new Random();
 
     random.nextInt();
 
     for (int i = 0; i < n; i++) {
       int change = i + random.nextInt(n - i);
-      swap(this.cards, i, change);
+      swap(this.stack, i, change);
     }
   }
+
+
+
 
   private static void swap(List<Card> cards, int i, int change) {
     Card helper = cards.get(i);

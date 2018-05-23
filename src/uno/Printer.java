@@ -26,9 +26,24 @@ public class Printer {
     System.out.println("");
     printMultiple("+--------+ ", cards.size());
     System.out.println("");
+  }
 
+  public static void printGreeting() {
+    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println("-------------------------------------------");
+    System.out.println("||||||||||||||||||| UNO |||||||||||||||||||");
+    System.out.println("-------------------------------------------");
+    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println("Type how many will play!");
   }
   
+  public static void printTurn(Player player) {
+    System.out.println("It's your turn, " + player.getName() + "!");
+    System.out.println("These are your cards:");
+
+    printCardsSet((List<Card>) player.getCardS().values());
+  }
+
   private static void printMultiple(String toPrint, int n) {
     if (n > 0) {
       System.out.print(toPrint);

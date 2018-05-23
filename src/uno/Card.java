@@ -14,7 +14,7 @@ public class Card {
   }
 
   public String getColor() { return this.color; }
-  public String getNumber() { return this.number; }
+  public int getNumber() { return this.number; }
   public String getNumberS() { return Integer.toString(this.number); }
 
 }

@@ -1,6 +1,7 @@
 package uno;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Printer
@@ -41,7 +42,7 @@ public class Printer {
     System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println("These are your cards:");
 
-    printCardsSet((List<Card>) player.getCardS().values());
+    printCardsSet( new ArrayList<Card>(player.getCardS().values()) );
   }
 
   private static void printMultiple(String toPrint, int n) {

@@ -69,6 +69,14 @@ public class Game {
     Player turnPlayer = this.getNextPlayer();
 
     Printer.printTurn(turnPlayer);
+    selectedCard = turnPlayer.getCards().get(in.next());
+
+    if (selectedCard != null) {
+      System.out.println("you selected a card!");
+      System.out.println(selectedCard.getColor());
+      System.out.println(selectedCard.getNumberS());
+      this.nextTurn();
+    }
   }
 
   public void suffleDeck() {

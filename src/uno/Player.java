@@ -27,8 +27,18 @@ public class Player {
     }
   }
 
+  public Map<String, Card> getCards() { return this.cards; }
+
   public String getName() { return this.name; }
 
-  public Map<String, Card> getCardS() { return this.cards; }
+  public List<Card> getOrderedCards() {
+    List<Card> ordered = new ArrayList<>();
+
+    for (int i = 0; i < this.cards.size(); i++) {
+      ordered.add(i, this.cards.get( qwerty.substring(i, i + 1) ));
+    }
+
+    return ordered;
+  }
 
 }

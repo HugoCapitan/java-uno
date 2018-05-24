@@ -7,10 +7,7 @@ import java.util.ArrayList;
  * Printer
  */
 public class Printer {
-
-  public static void printCard(Card c) {
-
-  }
+  private static String qwerty = "qwertyuiopasdfghjklzxcvbnm";
 
   public static void printCardsSet(List<Card> cards) {
     printMultiple("+--------+ ", cards.size());
@@ -26,7 +23,12 @@ public class Printer {
     for (Card c : cards) { printSpecialRow("Bottom", c.getNumberS()); }
     System.out.println("");
     printMultiple("+--------+ ", cards.size());
-    System.out.println("");
+    System.out.println();
+    System.out.print("    ");
+    for (int i = 0; i < cards.size(); i++) {
+      System.out.print("(" + qwerty.substring(i, i + 1) + ")        ");
+    }
+    System.out.println();
   }
 
   public static void printGreeting() {
@@ -40,9 +42,12 @@ public class Printer {
   
   public static void printTurn(Player player) {
     System.out.println("It's your turn, " + player.getName() + "!");
-    System.out.println("These are your cards:");
+    System.out.println();
+    System.out.println("Select one of your cards:");
 
-    printCardsSet( new ArrayList<Card>(player.getCardS().values()) );
+    printCardsSet( player.getOrderedCards() );
+    
+    System.out.print("Card >");
   }
 
   private static void printMultiple(String toPrint, int n) {

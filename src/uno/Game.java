@@ -2,6 +2,7 @@ package uno;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
@@ -14,11 +15,11 @@ public class Game {
   private static Game uniqueInstance;
   private static Scanner in = new Scanner(System.in);
 
-  private int turnsCounter = 0;
+  private int turnsCounter = 1;
   private ListIterator playersIterator;
   private List<Player> players = new ArrayList<>();
-  private List<Card> deck      = new ArrayList<>();
-  private List<Card> stack     = new ArrayList<>();
+  private LinkedList<Card> deck      = new LinkedList<>();
+  private LinkedList<Card> stack     = new LinkedList<>();
 
   private Game() {
     int nPlayers;
@@ -63,7 +64,6 @@ public class Game {
   }
 
   public void nextTurn() {
-    ++this.turnsCounter;
     boolean selectedValid = true;
     Card selectedCard;
     Player turnPlayer = this.getNextPlayer();
@@ -73,10 +73,17 @@ public class Game {
 
     if (selectedCard != null) {
       System.out.println("you selected a card!");
-      System.out.println(selectedCard.getColor());
-      System.out.println(selectedCard.getNumberS());
-      this.nextTurn();
+      System.out.println(selectedCard.getColor() + selectedCard.getNumberS());
+
+      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
+        this.stack.addFirst(selectedCard);
+        this.turnsCounter++;
+      } else {
+        System.out.println("Your card sucks");
+      }
     }
+    
+    this.nextTurn();
   }
 
   public void suffleDeck() {

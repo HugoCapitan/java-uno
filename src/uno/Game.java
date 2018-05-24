@@ -69,7 +69,7 @@ public class Game {
     Player turnPlayer = this.getNextPlayer();
 
     Printer.printTurn(turnPlayer);
-    selectedCard = turnPlayer.getCards().get(in.next());
+    selectedCard = turnPlayer.pickCard(in.next());
 
     if (selectedCard != null) {
       System.out.println("you selected a card!");
@@ -90,9 +90,6 @@ public class Game {
       swap(this.deck, i, change);
     }
   }
-
-
-
 
   private static void swap(List<Card> deck, int i, int change) {
     Card helper = deck.get(i);

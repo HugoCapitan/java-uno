@@ -13,6 +13,13 @@ public class Card {
     this.color = color;
   }
 
+  public boolean isCompatible(Card comparator) {
+    return (
+      comparator.getColor().equals(this.color) &&
+      comparator.getNumber() == this.number
+    );
+  }
+
   public String getColor() { return this.color; }
   public int getNumber() { return this.number; }
   public String getNumberS() { return Integer.toString(this.number); }

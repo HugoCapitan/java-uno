@@ -27,6 +27,22 @@ public class Player {
     }
   }
 
+  public Card pickCard(String selection) {
+    Card selectedCard = this.cards.get(selection);
+    String lastKey = qwerty.substring(
+      this.cards.size() - 1, this.cards.size()
+    );
+
+    if (lastKey.equals(selection)) 
+      this.cards.remove(selection);
+    else if (selectedCard != null) 
+      // Replacing selected card with last in the map
+      this.cards.put(selection, this.cards.remove(lastKey));
+    
+
+    return selectedCard;
+  }
+
   public Map<String, Card> getCards() { return this.cards; }
 
   public String getName() { return this.name; }

@@ -20,11 +20,36 @@ public class Player {
     this.addCards(cards);
   }
 
+  public void addCard(Card card) {
+    int i = this.cards.size();
+    this.cards.put(qwerty.substring(i, i + 1), card);
+  }
+
   public void addCards(List<Card> cards) {
-    for (int i = 0; i < cards.size(); i++) {
+    int startingIndex = this.cards.size();
+
+    for (int i = startingIndex; i < startingIndex + cards.size(); i++) {
       Card cardToAdd = cards.get(i);
       this.cards.put(qwerty.substring(i, i + 1), cardToAdd);
     }
+  }
+
+  public Map<String, Card> getCards() { 
+    return this.cards; 
+  }  
+
+  public String getName() { 
+    return this.name; 
+  }
+  
+  public List<Card> getOrderedCards() {
+    List<Card> ordered = new ArrayList<>();
+
+    for (int i = 0; i < this.cards.size(); i++) {
+      ordered.add(i, this.cards.get( qwerty.substring(i, i + 1) ));
+    }
+
+    return ordered;
   }
 
   public Card pickCard(String selection) {
@@ -41,20 +66,6 @@ public class Player {
     
 
     return selectedCard;
-  }
-
-  public Map<String, Card> getCards() { return this.cards; }
-
-  public String getName() { return this.name; }
-
-  public List<Card> getOrderedCards() {
-    List<Card> ordered = new ArrayList<>();
-
-    for (int i = 0; i < this.cards.size(); i++) {
-      ordered.add(i, this.cards.get( qwerty.substring(i, i + 1) ));
-    }
-
-    return ordered;
   }
 
 }

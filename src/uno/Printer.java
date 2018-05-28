@@ -31,16 +31,7 @@ public class Printer {
     System.out.println();
   }
 
-  public static void printGreeting() {
-    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
-    System.out.println("-------------------------------------------");
-    System.out.println("||||||||||||||||||| UNO |||||||||||||||||||");
-    System.out.println("-------------------------------------------");
-    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
-    System.out.println("Type how many will play!");
-  }
-  
-  public static void printTurn(Player player) {
+  public static void printFirstTurn(Player player) {
     System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println();
     System.out.println("Select one of your cards:");
@@ -48,6 +39,15 @@ public class Printer {
     printCardsSet( player.getOrderedCards() );
     
     System.out.print("Card >");
+  }
+
+  public static void printGreeting() {
+    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println("-------------------------------------------");
+    System.out.println("||||||||||||||||||| UNO |||||||||||||||||||");
+    System.out.println("-------------------------------------------");
+    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println("Type how many will play!");
   }
 
   private static void printMultiple(String toPrint, int n) {
@@ -74,5 +74,28 @@ public class Printer {
         break;
     }
   }
+    
+  public static void printTurn(Player player, Card card) {
+    System.out.println("It's your turn, " + player.getName() + "!");
+    System.out.println();
 
+    System.out.println("Last Card:");
+    System.out.println("+--------+");
+    System.out.println("| " + card.getNumberS() + "      | ");
+    System.out.println("|        |");
+
+    System.out.print("| " + card.getColor());
+    printMultiple(" ", 7 - card.getColor().length());
+    System.out.println("|");
+    
+    System.out.println("|        |");
+    System.out.println("|      " + card.getNumberS() + " |");
+    System.out.println("+--------+");
+
+    System.out.println("Select one of your cards:");
+
+    printCardsSet( player.getOrderedCards() );
+    
+    System.out.print("Card >");
+  }
 }

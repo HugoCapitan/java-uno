@@ -15,14 +15,14 @@ public class Game {
   private static Game uniqueInstance;
   private static Scanner in = new Scanner(System.in);
 
-  private int turnsCounter = 1;
-  private ListIterator playersIterator;
+  private int playersNum;
+  private int turnsCounter;
+  private LinkedList<Card> deck = new LinkedList<>();
+  private LinkedList<Card> stack = new LinkedList<>();
   private List<Player> players = new ArrayList<>();
-  private LinkedList<Card> deck      = new LinkedList<>();
-  private LinkedList<Card> stack     = new LinkedList<>();
+  private ListIterator playersIterator;
 
   private Game() {
-    int nPlayers;
     // Creating and shuffling deck
     for (int i = 0; i <= 9; i++) {
       this.deck.add( new Card(i, "Yellow") );
@@ -34,56 +34,46 @@ public class Game {
 
     // Get players and start first turn
     Printer.printGreeting();
-    nPlayers = in.nextInt();
+    this.playersNum = in.nextInt();
 
-    for (int i = 0; i < nPlayers; i++) { this.addPlayer(); }
+    for (int i = 0; i < this.playersNum; i++) { 
+      this.addPlayer(); 
+    }
     this.playersIterator = players.listIterator();
-  
+
     this.nextTurn();
   }
 
   public void addPlayer() {
     Player newPlayer;
     int playerNumber = this.players.size();
-    List<Card> playerCards = new ArrayList<Card>(this.deck.subList(0, 7));
-
+    String playerName;
+    List<Card> playerCards;
+    
     System.out.println("Enter name for player #" + playerNumber);
-    newPlayer = new Player(in.next(), playerCards);
-    players.add(playerNumber, newPlayer);
-
-    this.deck.subList(0, 7).clear();
+    playerName = in.next();
+    playerCards = new ArrayList<Card>(this.deck.subList(0, 7));
+    newPlayer = new Player(playerName, playerCards);
+    this.deck.subList(0, 7).clear(); // Remove player cards from deck.    
+    
+    this.players.add(playerNumber, newPlayer);
   }
-
-  public List<Player> getPlayers() { return this.players; }
-
-  private Player getNextPlayer() { 
+  
+  private Player getNextPlayer() {
+    // Reset iterator when position is last.
     if (!this.playersIterator.hasNext()) 
       this.playersIterator = this.players.listIterator();
 
     return (Player) this.playersIterator.next();
   }
 
+  public List<Player> getPlayers() { 
+    return this.players; 
+  }
+
   public void nextTurn() {
-    boolean selectedValid = true;
-    Card selectedCard;
-    Player turnPlayer = this.getNextPlayer();
-
-    Printer.printTurn(turnPlayer);
-    selectedCard = turnPlayer.pickCard(in.next());
-
-    if (selectedCard != null) {
-      System.out.println("you selected a card!");
-      System.out.println(selectedCard.getColor() + selectedCard.getNumberS());
-
-      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
-        this.stack.addFirst(selectedCard);
-        this.turnsCounter++;
-      } else {
-        System.out.println("Your card sucks");
-      }
-    }
-    
-    this.nextTurn();
+    ++this.turnsCounter;
+    this.turn(this.getNextPlayer());
   }
 
   public void suffleDeck() {
@@ -97,6 +87,36 @@ public class Game {
       swap(this.deck, i, change);
     }
   }
+  
+  private void turn(Player turnPlayer) {
+    System.out.println(this.turnsCounter);
+    Card selectedCard;
+    String selectionChar;
+
+    if (this.turnsCounter == 1)
+      Printer.printFirstTurn(turnPlayer);
+    else   
+      Printer.printTurn(turnPlayer, this.stack.getFirst());
+
+    selectionChar = in.next();
+    selectedCard = turnPlayer.getCards().get(selectionChar);
+
+    if (selectedCard != null) {
+      System.out.println(
+        "you selected the | " + selectedCard.getNumberS() + " " + selectedCard.getColor() + " | card."
+      );
+
+      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
+        this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
+        this.nextTurn();
+      } else {
+        System.out.println("This card can't be played, please select another one.");
+        this.turn(turnPlayer);
+      }
+    }
+  }
+
+
 
   private static void swap(List<Card> deck, int i, int change) {
     Card helper = deck.get(i);
@@ -109,5 +129,5 @@ public class Game {
 
     return uniqueInstance;
   }
-
+ 
 }

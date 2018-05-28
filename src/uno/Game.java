@@ -58,6 +58,14 @@ public class Game {
     
     this.players.add(playerNumber, newPlayer);
   }
+
+  private void eatCard(Player turnPlayer) {
+    turnPlayer.addCard(
+      this.deck.removeLast()
+    );
+
+    this.turn(turnPlayer);
+  }
   
   private Player getNextPlayer() {
     // Reset iterator when position is last.
@@ -76,6 +84,28 @@ public class Game {
     this.turn(this.getNextPlayer());
   }
 
+  private void pass() {
+    this.nextTurn();
+  }
+
+  private void playCard(Player turnPlayer, String selectionChar) {
+    Card selectedCard = turnPlayer.getCards().get(selectionChar);
+    
+    if (selectedCard != null) {
+      System.out.println(
+        "you selected the | " + selectedCard.getNumberS() + " " + selectedCard.getColor() + " | card."
+      );
+
+      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
+        this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
+        this.nextTurn();
+      } else {
+        System.out.println("This card can't be played, please select another one.");
+        this.turn(turnPlayer);
+      }
+    }
+  }
+
   public void suffleDeck() {
     int n = this.deck.size();
     Random random = new Random();
@@ -90,7 +120,6 @@ public class Game {
   
   private void turn(Player turnPlayer) {
     System.out.println(this.turnsCounter);
-    Card selectedCard;
     String selectionChar;
 
     if (this.turnsCounter == 1)
@@ -99,21 +128,13 @@ public class Game {
       Printer.printTurn(turnPlayer, this.stack.getFirst());
 
     selectionChar = in.next();
-    selectedCard = turnPlayer.getCards().get(selectionChar);
 
-    if (selectedCard != null) {
-      System.out.println(
-        "you selected the | " + selectedCard.getNumberS() + " " + selectedCard.getColor() + " | card."
-      );
-
-      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
-        this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
-        this.nextTurn();
-      } else {
-        System.out.println("This card can't be played, please select another one.");
-        this.turn(turnPlayer);
-      }
-    }
+    if (selectionChar.equals("pass") && this.turnsCounter > 1) 
+      this.pass();
+    else if (selectionChar.equals("eat"))
+      this.eatCard(turnPlayer);
+    else if (selectionChar.length() == 1)
+      this.playCard(turnPlayer, selectionChar);
   }
 
 

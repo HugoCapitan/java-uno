@@ -129,6 +129,19 @@ public class Game {
 
     selectionChar = in.next();
 
+    if (this.deck.size() == 0) {
+      System.out.println("Before - Deck Size:  " + this.deck.size());
+      System.out.println("Before - Stack Size: " + this.stack.size());
+      Card firstCard = this.stack.removeFirst();
+      this.deck.addAll(this.stack);
+      this.suffleDeck();
+
+      this.stack = new LinkedList<>();
+      this.stack.addFirst(firstCard);
+      System.out.println("After - Deck Size:  " + this.deck.size());
+      System.out.println("After - Stack Size: " + this.stack.size());
+    }
+
     if (selectionChar.equals("pass") && this.turnsCounter > 1) 
       this.pass();
     else if (selectionChar.equals("eat"))

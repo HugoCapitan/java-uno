@@ -42,15 +42,39 @@ public class Printer {
   }
 
   public static void printGreeting() {
-    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
-    System.out.println("-------------------------------------------");
-    System.out.println("||||||||||||||||||| UNO |||||||||||||||||||");
-    System.out.println("-------------------------------------------");
-    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println(
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                 UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO                     \n" +
+      "                 U::::::U     U::::::UN:::::::N       N::::::N   OO:::::::::OO                   \n" +
+      "                 U::::::U     U::::::UN::::::::N      N::::::N OO:::::::::::::OO                 \n" +
+      "                 UU:::::U     U:::::UUN:::::::::N     N::::::NO:::::::OOO:::::::O                \n" +
+      "                  U:::::U     U:::::U N::::::::::N    N::::::NO::::::O   O::::::O                \n" +
+      "                  U:::::D     D:::::U N:::::::::::N   N::::::NO:::::O     O:::::O                \n" +
+      "                  U:::::D     D:::::U N:::::::N::::N  N::::::NO:::::O     O:::::O                \n" +
+      "                  U:::::D     D:::::U N::::::N N::::N N::::::NO:::::O     O:::::O                \n" +
+      "                  U:::::D     D:::::U N::::::N  N::::N:::::::NO:::::O     O:::::O                \n" +
+      "                  U:::::D     D:::::U N::::::N   N:::::::::::NO:::::O     O:::::O                \n" +
+      "                  U:::::D     D:::::U N::::::N    N::::::::::NO:::::O     O:::::O                \n" +
+      "                  U::::::U   U::::::U N::::::N     N:::::::::NO::::::O   O::::::O                \n" +
+      "                  U:::::::UUU:::::::U N::::::N      N::::::::NO:::::::OOO:::::::O                \n" +
+      "                    UU:::::::::::::UU  N::::::N       N:::::::N OO:::::::::::::OO                \n" +
+      "                      UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO                  \n" +
+      "                        UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO                    \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 \n" +
+      "                                                                                                 "
+    ); 
+
+
     System.out.println("Type how many will play!");
   }
 
-  private static void printMultiple(String toPrint, int n) {
+  public static void printMultiple(String toPrint, int n) {
     if (n > 0) {
       System.out.print(toPrint);
       printMultiple(toPrint, n - 1);
@@ -76,6 +100,9 @@ public class Printer {
   }
     
   public static void printTurn(Player player, Card card) {
+    System.out.println();
+    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
+    System.out.println();
     System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println();
 

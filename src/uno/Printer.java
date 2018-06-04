@@ -60,9 +60,6 @@ public class Printer {
   public static void printGreeting() {
     System.out.print("\033[H\033[2J");
     System.out.println(
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
       "                 UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO                     \n" +
       "                 U::::::U     U::::::UN:::::::N       N::::::N   OO:::::::::OO                   \n" +
       "                 U::::::U     U::::::UN::::::::N      N::::::N OO:::::::::::::OO                 \n" +
@@ -77,14 +74,8 @@ public class Printer {
       "                  U::::::U   U::::::U N::::::N     N:::::::::NO::::::O   O::::::O                \n" +
       "                  U:::::::UUU:::::::U N::::::N      N::::::::NO:::::::OOO:::::::O                \n" +
       "                    UU:::::::::::::UU  N::::::N       N:::::::N OO:::::::::::::OO                \n" +
-      "                      UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO                  \n" +
-      "                        UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO                    \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 \n" +
-      "                                                                                                 "
+      "                      UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO\n" +
+      "                        UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO" 
     ); 
 
 

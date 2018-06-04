@@ -2,11 +2,13 @@ package uno;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Printer
  */
 public class Printer {
+  private static Scanner in = new Scanner(System.in);
   private static String qwerty = "qwertyuiopasdfghjklzxcvbnm";
 
   public static void printCardsSet(List<Card> cards) {
@@ -31,17 +33,32 @@ public class Printer {
     System.out.println();
   }
 
+  public static void printCentered(String centerText) {
+    printMultiple(" ", (97 - centerText.length()) / 2);
+    System.out.println(centerText);
+  }
+
   public static void printFirstTurn(Player player) {
+    System.out.print("\033[H\033[2J");
     System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println();
-    System.out.println("Select one of your cards:");
+    System.out.println();
+    System.out.println();
+
+    System.out.println("These are your cards:");
 
     printCardsSet( player.getOrderedCards() );
+
+    System.out.println();
+    System.out.println();
+    System.out.println("} To play a card type the letter below it");
+    System.out.println();
     
-    System.out.print("Card >");
+    System.out.print("> ");
   }
 
   public static void printGreeting() {
+    System.out.print("\033[H\033[2J");
     System.out.println(
       "                                                                                                 \n" +
       "                                                                                                 \n" +
@@ -81,6 +98,15 @@ public class Printer {
     }
   }
 
+  public static String printNamePetition(int playerNumber) {
+    System.out.print("\033[H\033[2J");
+
+    System.out.println("What's your name, player " + (playerNumber + 1) + "?");
+    System.out.print("> ");
+
+    return in.next();
+  }
+
   private static void printSpecialRow(String kind, String text) {
     switch (kind) {
       case "Top":
@@ -100,29 +126,34 @@ public class Printer {
   }
     
   public static void printTurn(Player player, Card card) {
-    System.out.println();
-    System.out.println("ooooooooooooooooooooooooooooooooooooooooooo");
-    System.out.println();
+    System.out.print("\033[H\033[2J");
     System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println();
+    System.out.println();
 
-    System.out.println("Last Card:");
+    System.out.println("Last Played Card:");
     System.out.println("+--------+");
     System.out.println("| " + card.getNumberS() + "      | ");
     System.out.println("|        |");
-
-    System.out.print("| " + card.getColor());
+    System.out.print(  "| " + card.getColor());
     printMultiple(" ", 7 - card.getColor().length());
     System.out.println("|");
-    
     System.out.println("|        |");
     System.out.println("|      " + card.getNumberS() + " |");
     System.out.println("+--------+");
 
-    System.out.println("Select one of your cards:");
+    System.out.println();
+    System.out.println("These are your cards:");
 
     printCardsSet( player.getOrderedCards() );
+
+    System.out.println();
+    System.out.println();
+    System.out.println("} To play a card type the letter below it");
+    System.out.println("} To eat type 'eat'");
+    System.out.println("} To skip type 'pass'");
+    System.out.println();
     
-    System.out.print("Card >");
+    System.out.print("> ");
   }
 }

@@ -44,9 +44,7 @@ public class Game {
     String playerName;
     List<Card> playerCards;
     
-    System.out.println("Enter name for player #" + (playerNumber + 1));
-    playerName = in.next();
-
+    playerName = Printer.printNamePetition(playerNumber);
     playerCards = new ArrayList<Card>(this.deck.subList(0, 7));
 
     newPlayer = new Player(playerName, playerCards);

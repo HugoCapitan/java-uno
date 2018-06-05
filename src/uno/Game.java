@@ -92,10 +92,6 @@ public class Game {
     Card selectedCard = turnPlayer.getCards().get(selectionChar);
     
     if (selectedCard != null) {
-      System.out.println(
-        "you selected the | " + selectedCard.getNumberS() + " " + selectedCard.getColor() + " | card."
-      );
-
       if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
         this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
         this.nextTurn();

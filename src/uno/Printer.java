@@ -15,12 +15,15 @@ public class Printer {
     String tops = "";
     String middles = "";
     String bottoms = "";
+    String letters = "";
     for (Card c : cards) { 
       tops += printSpecialRow("Top", c.getNumberS());
       middles += printSpecialRow("Middle", c.getColor()); 
       bottoms += printSpecialRow("Bottom", c.getNumberS());
     }
-      
+    for (int i = 0; i < cards.size(); i++) {
+      letters += ("    (" + qwerty.substring(i, i + 1) + ")    ");
+    }
     
     System.out.println( printCentered( printMultiple("+--------+ ", cards.size()) ) );
     System.out.println( printCentered(tops) );
@@ -29,8 +32,7 @@ public class Printer {
     System.out.println( printCentered( printMultiple("|        | ", cards.size()) ) );
     System.out.println( printCentered(bottoms) );
     System.out.println( printCentered( printMultiple("+--------+ ", cards.size()) ) );
-    
-    System.out.print("    ");
+    System.out.println( printCentered(letters) );    
     
     System.out.println();
   }

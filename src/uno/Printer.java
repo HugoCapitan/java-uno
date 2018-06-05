@@ -140,7 +140,7 @@ public class Printer {
     System.out.println("What's your name, player " + (playerNumber + 1) + "?");
     System.out.print("> ");
 
-    return in.next();
+    return in.nextLine();
   }
 
   private static String printSpecialRow(String kind, String text) {

@@ -11,15 +11,25 @@ public class Printer {
   private static Scanner in = new Scanner(System.in);
   private static String qwerty = "qwertyuiopasdfghjklzxcvbnm";
 
+  public static void printCard(Card card) {
+    System.out.println( printCentered("+--------+ ") );
+    System.out.println( printCentered( printSpecialRow("Top", card.getNumberS()) + " " ) );
+    System.out.println( printCentered("|        | ") );
+    System.out.println( printCentered( printSpecialRow("Middle", card.getColor()) + " " ) );
+    System.out.println( printCentered("|        | ") );
+    System.out.println( printCentered( printSpecialRow("Bottom", card.getNumberS()) + " ") );
+    System.out.println( printCentered("+--------+ ") );
+  }
+
   public static void printCardsSet(List<Card> cards) {
     String tops = "";
     String middles = "";
     String bottoms = "";
     String letters = "";
     for (Card c : cards) { 
-      tops += printSpecialRow("Top", c.getNumberS());
-      middles += printSpecialRow("Middle", c.getColor()); 
-      bottoms += printSpecialRow("Bottom", c.getNumberS());
+      tops += (printSpecialRow("Top", c.getNumberS()) + " ");
+      middles += (printSpecialRow("Middle", c.getColor()) + " "); 
+      bottoms += (printSpecialRow("Bottom", c.getNumberS()) + " ");
     }
     for (int i = 0; i < cards.size(); i++) {
       letters += ("    (" + qwerty.substring(i, i + 1) + ")    ");
@@ -110,13 +120,13 @@ public class Printer {
 
     switch (kind) {
       case "Top":
-        result += ("| " + text + "      | ");
+        result += ("| " + text + "      |");
         break;
       case "Middle":
-        result += ("| " + text + printMultiple(" ", 7 - text.length()) + "| ");
+        result += ("| " + text + printMultiple(" ", 7 - text.length()) + "|");
         break;
       case "Bottom":
-        result += ("|      " + text + " | ");
+        result += ("|      " + text + " |");
         break;
       default:
         break;
@@ -132,15 +142,7 @@ public class Printer {
     System.out.println();
 
     System.out.println("Last Played Card:");
-    System.out.println("+--------+");
-    System.out.println("| " + card.getNumberS() + "      | ");
-    System.out.println("|        |");
-    System.out.print(  "| " + card.getColor());
-    System.out.print( printMultiple(" ", 7 - card.getColor().length()) );
-    System.out.println("|");
-    System.out.println("|        |");
-    System.out.println("|      " + card.getNumberS() + " |");
-    System.out.println("+--------+");
+    printCard(card);
 
     System.out.println();
     System.out.println("These are your cards:");

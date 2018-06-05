@@ -101,7 +101,9 @@ public class Printer {
     System.out.println( printCentered("    UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO   ") );
     System.out.println( printCentered("      UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO     ") );
     for (int i = 0; i < 10; i++) { System.out.println(); }
-    System.out.println("Adjust the screen width till the dashes dont break (Press enter when done)");
+    System.out.println(
+      "Adjust the screen height and width till the two lines of dashes are visible and they dont break (Press enter when done)"
+    );
     System.out.print(
       "--------------------------------------------------------------------------------------------------------------------------------"
     );

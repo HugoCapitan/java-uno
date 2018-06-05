@@ -12,30 +12,31 @@ public class Printer {
   private static String qwerty = "qwertyuiopasdfghjklzxcvbnm";
 
   public static void printCardsSet(List<Card> cards) {
-    printMultiple("+--------+ ", cards.size());
-    System.out.println("");
-    for (Card c : cards) { printSpecialRow("Top", c.getNumberS()); }
-    System.out.println("");
-    printMultiple("|        | ", cards.size());
-    System.out.println("");
-    for (Card c : cards) { printSpecialRow("Middle", c.getColor()); }
-    System.out.println("");
-    printMultiple("|        | ", cards.size());
-    System.out.println("");
-    for (Card c : cards) { printSpecialRow("Bottom", c.getNumberS()); }
-    System.out.println("");
-    printMultiple("+--------+ ", cards.size());
-    System.out.println();
-    System.out.print("    ");
-    for (int i = 0; i < cards.size(); i++) {
-      System.out.print("(" + qwerty.substring(i, i + 1) + ")        ");
+    String tops = "";
+    String middles = "";
+    String bottoms = "";
+    for (Card c : cards) { 
+      tops += printSpecialRow("Top", c.getNumberS());
+      middles += printSpecialRow("Middle", c.getColor()); 
+      bottoms += printSpecialRow("Bottom", c.getNumberS());
     }
+      
+    
+    System.out.println( printCentered( printMultiple("+--------+ ", cards.size()) ) );
+    System.out.println( printCentered(tops) );
+    System.out.println( printCentered( printMultiple("|        | ", cards.size()) ) );
+    System.out.println( printCentered(middles) );
+    System.out.println( printCentered( printMultiple("|        | ", cards.size()) ) );
+    System.out.println( printCentered(bottoms) );
+    System.out.println( printCentered( printMultiple("+--------+ ", cards.size()) ) );
+    
+    System.out.print("    ");
+    
     System.out.println();
   }
 
-  public static void printCentered(String centerText) {
-    printMultiple(" ", (97 - centerText.length()) / 2);
-    System.out.println(centerText);
+  public static String printCentered(String centerText) {
+    return printMultiple(" ", (128 - centerText.length()) / 2) + centerText;
   }
 
   public static void printFirstTurn(Player player) {
@@ -59,34 +60,38 @@ public class Printer {
 
   public static void printGreeting() {
     System.out.print("\033[H\033[2J");
-    System.out.println(
-      "                 UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO                     \n" +
-      "                 U::::::U     U::::::UN:::::::N       N::::::N   OO:::::::::OO                   \n" +
-      "                 U::::::U     U::::::UN::::::::N      N::::::N OO:::::::::::::OO                 \n" +
-      "                 UU:::::U     U:::::UUN:::::::::N     N::::::NO:::::::OOO:::::::O                \n" +
-      "                  U:::::U     U:::::U N::::::::::N    N::::::NO::::::O   O::::::O                \n" +
-      "                  U:::::D     D:::::U N:::::::::::N   N::::::NO:::::O     O:::::O                \n" +
-      "                  U:::::D     D:::::U N:::::::N::::N  N::::::NO:::::O     O:::::O                \n" +
-      "                  U:::::D     D:::::U N::::::N N::::N N::::::NO:::::O     O:::::O                \n" +
-      "                  U:::::D     D:::::U N::::::N  N::::N:::::::NO:::::O     O:::::O                \n" +
-      "                  U:::::D     D:::::U N::::::N   N:::::::::::NO:::::O     O:::::O                \n" +
-      "                  U:::::D     D:::::U N::::::N    N::::::::::NO:::::O     O:::::O                \n" +
-      "                  U::::::U   U::::::U N::::::N     N:::::::::NO::::::O   O::::::O                \n" +
-      "                  U:::::::UUU:::::::U N::::::N      N::::::::NO:::::::OOO:::::::O                \n" +
-      "                    UU:::::::::::::UU  N::::::N       N:::::::N OO:::::::::::::OO                \n" +
-      "                      UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO\n" +
-      "                        UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO" 
-    ); 
+    
+    System.out.println( printCentered("UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO     ") );
+    System.out.println( printCentered("U::::::U     U::::::UN:::::::N       N::::::N   OO:::::::::OO   ") );
+    System.out.println( printCentered("U::::::U     U::::::UN::::::::N      N::::::N OO:::::::::::::OO ") );
+    System.out.println( printCentered("UU:::::U     U:::::UUN:::::::::N     N::::::NO:::::::OOO:::::::O") );
+    System.out.println( printCentered(" U:::::U     U:::::U N::::::::::N    N::::::NO::::::O   O::::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N:::::::::::N   N::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N:::::::N::::N  N::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N::::::N N::::N N::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N::::::N  N::::N:::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N::::::N   N:::::::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U:::::D     D:::::U N::::::N    N::::::::::NO:::::O     O:::::O") );
+    System.out.println( printCentered(" U::::::U   U::::::U N::::::N     N:::::::::NO::::::O   O::::::O") );
+    System.out.println( printCentered(" U:::::::UUU:::::::U N::::::N      N::::::::NO:::::::OOO:::::::O") );
+    System.out.println( printCentered("  UU:::::::::::::UU  N::::::N       N:::::::N OO:::::::::::::OO ") );
+    System.out.println( printCentered("    UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO   ") );
+    System.out.println( printCentered("      UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO     ") );
 
+    System.out.println(
+      "--------------------------------------------------------------------------------------------------------------------------------"
+    );
 
     System.out.println("Type how many will play!");
   }
 
-  public static void printMultiple(String toPrint, int n) {
-    if (n > 0) {
-      System.out.print(toPrint);
-      printMultiple(toPrint, n - 1);
+  public static String printMultiple(String toPrint, int n) {
+    String result = "";
+    for (int i = 0; i < n; i++) {
+      result += toPrint;
     }
+
+    return result;
   }
 
   public static String printNamePetition(int playerNumber) {
@@ -98,22 +103,24 @@ public class Printer {
     return in.next();
   }
 
-  private static void printSpecialRow(String kind, String text) {
+  private static String printSpecialRow(String kind, String text) {
+    String result = "";
+
     switch (kind) {
       case "Top":
-        System.out.print("| " + text + "      | ");
+        result += ("| " + text + "      | ");
         break;
       case "Middle":
-        System.out.print("| " + text);
-        printMultiple(" ", 7 - text.length());
-        System.out.print("| ");
+        result += ("| " + text + printMultiple(" ", 7 - text.length()) + "| ");
         break;
       case "Bottom":
-        System.out.print("|      " + text + " | ");
+        result += ("|      " + text + " | ");
         break;
       default:
         break;
     }
+
+    return result;
   }
     
   public static void printTurn(Player player, Card card) {
@@ -127,7 +134,7 @@ public class Printer {
     System.out.println("| " + card.getNumberS() + "      | ");
     System.out.println("|        |");
     System.out.print(  "| " + card.getColor());
-    printMultiple(" ", 7 - card.getColor().length());
+    System.out.print( printMultiple(" ", 7 - card.getColor().length()) );
     System.out.println("|");
     System.out.println("|        |");
     System.out.println("|      " + card.getNumberS() + " |");

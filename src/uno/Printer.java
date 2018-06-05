@@ -53,19 +53,20 @@ public class Printer {
 
   public static void printFirstTurn(Player player) {
     System.out.print("\033[H\033[2J");
-    System.out.println("It's your turn, " + player.getName() + "!");
     System.out.println();
-    System.out.println();
-    System.out.println();
+    System.out.println( printCentered("Lets get this going, " + player.getName() + "!") );
 
-    System.out.println("These are your cards:");
+    for (int i = 0; i < 5; i++) { System.out.println(); }
+
+    System.out.println( printCentered("These are your cards:") );
 
     printCardsSet( player.getOrderedCards() );
 
-    System.out.println();
-    System.out.println();
-    System.out.println("} To play a card type the letter below it");
-    System.out.println();
+    for (int i = 0; i < 3; i++) { System.out.println(); }
+
+    System.out.println( printCentered("} To play a card type the letter below it {") );
+
+    for (int i = 0; i < 2; i++) { System.out.println(); }
     
     System.out.print("> ");
   }
@@ -137,25 +138,35 @@ public class Printer {
     
   public static void printTurn(Player player, Card card) {
     System.out.print("\033[H\033[2J");
-    System.out.println("It's your turn, " + player.getName() + "!");
+    
     System.out.println();
-    System.out.println();
+    System.out.println( printCentered("-_-_-_ It's your turn, " + player.getName() + "! _-_-_-") ); 
+    System.out.println( printCentered("      -________________" + printMultiple("_", player.getName().length()) + "_-      ") ); 
+    for (int i = 0; i < 2; i++) { System.out.println(); }
 
-    System.out.println("Last Played Card:");
+    System.out.println( printCentered("     Last played card     ") );
+    System.out.println( printCentered("~~+--------------------+~~") );
+    System.out.println();
     printCard(card);
 
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("     Your cards     ") );
+    System.out.println( printCentered("~~+--------------+~~") );
     System.out.println();
-    System.out.println("These are your cards:");
 
     printCardsSet( player.getOrderedCards() );
 
-    System.out.println();
-    System.out.println();
-    System.out.println("} To play a card type the letter below it");
-    System.out.println("} To eat type 'eat'");
-    System.out.println("} To skip type 'pass'");
-    System.out.println();
     
-    System.out.print("> ");
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("+~: HELP :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("|  - To eat type 'eat'                           |") );
+    System.out.println( printCentered("|  - To skip type 'pass'                         |") );
+    System.out.println( printCentered("|  - To play a card type the letter below it     |") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    for (int i = 0; i < 1; i++) { System.out.println(); }
+    
+    System.out.print( printCentered("> ") );
   }
 }

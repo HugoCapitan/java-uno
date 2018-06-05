@@ -146,6 +146,8 @@ public class Game {
       this.eatCard(turnPlayer);
     else if (selectionChar.length() == 1)
       this.playCard(turnPlayer, selectionChar);
+    else 
+      this.turn(turnPlayer);
   }
 
 

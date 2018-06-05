@@ -96,9 +96,12 @@ public class Game {
         this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
         this.nextTurn();
       } else {
-        System.out.println("This card can't be played, please select another one.");
+        // TODO: Display "this card can't be played" message
         this.turn(turnPlayer);
       }
+    } else {
+      // TODO: Display "this card doesn't exists" message
+      this.turn(turnPlayer);
     }
   }
 

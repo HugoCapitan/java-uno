@@ -54,26 +54,36 @@ public class Printer {
   public static void printFirstTurn(Player player) {
     System.out.print("\033[H\033[2J");
     System.out.println();
-    System.out.println( printCentered("Lets get this going, " + player.getName() + "!") );
+
+    System.out.println( printCentered("-_-_-_ Lets get this going, " + player.getName() + "! _-_-_-") );
+    System.out.println( printCentered("      -_____________________" + printMultiple("_", player.getName().length()) + "_-      ") ); 
 
     for (int i = 0; i < 5; i++) { System.out.println(); }
 
-    System.out.println( printCentered("These are your cards:") );
-
+    System.out.println( printCentered("     Your cards     ") );
+    System.out.println( printCentered("~~+--------------+~~") );
+    System.out.println();
     printCardsSet( player.getOrderedCards() );
 
-    for (int i = 0; i < 3; i++) { System.out.println(); }
-
-    System.out.println( printCentered("} To play a card type the letter below it {") );
-
-    for (int i = 0; i < 2; i++) { System.out.println(); }
+    for (int i = 0; i < 7; i++) { System.out.println(); }
+    System.out.println( printCentered("+~: HELP :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("|  - To play a card type the letter below it     |") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    for (int i = 0; i < 4; i++) { System.out.println(); }
     
-    System.out.print("> ");
+    System.out.print( printCentered("> ") );
   }
 
   public static void printGreeting() {
     System.out.print("\033[H\033[2J");
     
+    System.out.println();
+    System.out.println(
+      "--------------------------------------------------------------------------------------------------------------------------------"
+    );
+    for (int i = 0; i < 10; i++) { System.out.println(); }
     System.out.println( printCentered("UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO     ") );
     System.out.println( printCentered("U::::::U     U::::::UN:::::::N       N::::::N   OO:::::::::OO   ") );
     System.out.println( printCentered("U::::::U     U::::::UN::::::::N      N::::::N OO:::::::::::::OO ") );
@@ -90,12 +100,24 @@ public class Printer {
     System.out.println( printCentered("  UU:::::::::::::UU  N::::::N       N:::::::N OO:::::::::::::OO ") );
     System.out.println( printCentered("    UU:::::::::UU    N::::::N        N::::::N   OO:::::::::OO   ") );
     System.out.println( printCentered("      UUUUUUUUU      NNNNNNNN         NNNNNNN     OOOOOOOOO     ") );
-
-    System.out.println(
+    for (int i = 0; i < 10; i++) { System.out.println(); }
+    System.out.println("Adjust the screen width till the dashes dont break (Press enter when done)");
+    System.out.print(
       "--------------------------------------------------------------------------------------------------------------------------------"
     );
+    
+    try {
+      System.in.read();
+    } catch (Exception e) {
+    
+    }
 
-    System.out.println("Type how many will play!");
+    System.out.print("\033[H\033[2J");
+    System.out.println(
+      "+------------------------------------------------------------------------------------------------------------------------------+"
+    );
+    System.out.println("How many will play?");
+    System.out.print("> ");
   }
 
   public static String printMultiple(String toPrint, int n) {
@@ -110,6 +132,9 @@ public class Printer {
   public static String printNamePetition(int playerNumber) {
     System.out.print("\033[H\033[2J");
 
+    System.out.println(
+      "+------------------------------------------------------------------------------------------------------------------------------+"
+    );
     System.out.println("What's your name, player " + (playerNumber + 1) + "?");
     System.out.print("> ");
 

@@ -6,6 +6,6 @@ package uno;
 public class Main {
 
   public static void main(String[] args) {
-    Game newGame = Game.getNewGame();
+    Uno newGame = Uno.getNewGame();
   }
 }

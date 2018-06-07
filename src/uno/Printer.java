@@ -13,11 +13,11 @@ public class Printer {
 
   public static void printCard(Card card) {
     System.out.println( printCentered("+--------+ ") );
-    System.out.println( printCentered( printSpecialRow("Top", card.getNumberS()) + " " ) );
+    System.out.println( printCentered( printSpecialRow("Top", card.getNumber()) + " " ) );
     System.out.println( printCentered("|        | ") );
     System.out.println( printCentered( printSpecialRow("Middle", card.getColor()) + " " ) );
     System.out.println( printCentered("|        | ") );
-    System.out.println( printCentered( printSpecialRow("Bottom", card.getNumberS()) + " ") );
+    System.out.println( printCentered( printSpecialRow("Bottom", card.getNumber()) + " ") );
     System.out.println( printCentered("+--------+ ") );
   }
 
@@ -27,9 +27,9 @@ public class Printer {
     String bottoms = "";
     String letters = "";
     for (Card c : cards) { 
-      tops += (printSpecialRow("Top", c.getNumberS()) + " ");
+      tops += (printSpecialRow("Top", c.getNumber()) + " ");
       middles += (printSpecialRow("Middle", c.getColor()) + " "); 
-      bottoms += (printSpecialRow("Bottom", c.getNumberS()) + " ");
+      bottoms += (printSpecialRow("Bottom", c.getNumber()) + " ");
     }
     for (int i = 0; i < cards.size(); i++) {
       letters += ("    (" + qwerty.substring(i, i + 1) + ")    ");
@@ -148,13 +148,13 @@ public class Printer {
 
     switch (kind) {
       case "Top":
-        result += ("| " + text + "      |");
+        result += ("| " + text + printMultiple(" ", 7 - text.length()) + "|");
         break;
       case "Middle":
         result += ("| " + text + printMultiple(" ", 7 - text.length()) + "|");
         break;
       case "Bottom":
-        result += ("|      " + text + " |");
+        result += ("|" + printMultiple(" ", 7 - text.length()) + text + " |");
         break;
       default:
         break;

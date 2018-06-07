@@ -9,16 +9,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Game
+ * Uno
  */
 public class Uno {
   private static Uno uno;
   private static Scanner in = new Scanner(System.in);
 
-  protected LinkedList<Card> deck = new LinkedList<>();
-  protected LinkedList<Card> stack = new LinkedList<>();
-  protected List<Player> players = new ArrayList<>();
-  protected ListIterator playersIterator = null;
+  private int playersNum;
+  private int turnsCounter;
+  private LinkedList<Card> deck = new LinkedList<>();
+  private LinkedList<Card> stack = new LinkedList<>();
+  private List<Player> players = new ArrayList<>();
+  private ListIterator playersIterator = null;
 
   private Uno() {
     // Creating and shuffling deck
@@ -156,10 +158,10 @@ public class Uno {
     deck.set(change, helper);
   }
   
-  public static Game getNewGame () {
-    uniqueInstance = new Game();
+  public static Uno getNewGame () {
+    uno = new Uno();
 
-    return uniqueInstance;
+    return uno;
   }
  
 }

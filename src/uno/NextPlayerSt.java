@@ -17,7 +17,6 @@ public class NextPlayerSt implements RetrievePlayerSt {
     ListIterator iterator = uno.getPlayersIterator();
 
     if (iterator == null || !iterator.hasNext()) {
-      System.out.println("IS NULL!");
       iterator = uno.getPlayers().listIterator();
       uno.setPlayersIterator(iterator);
     }

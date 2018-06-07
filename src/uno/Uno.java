@@ -80,12 +80,43 @@ public class Uno {
   }
 
   public void initDeck() {
+    // First: Colored Cards From 0 to 9
     for (int i = 0; i <= 9; i++) {
-      this.deck.add( new Card(i, "Yellow") );
-      this.deck.add( new Card(i, "Red") );
-      this.deck.add( new Card(i, "Blue") );
-      this.deck.add( new Card(i, "Green") );
+      String number = Integer.toString(i);
+      this.deck.add( new Card(number, "Yellow") );
+      this.deck.add( new Card(number, "Red") );
+      this.deck.add( new Card(number, "Blue") );
+      this.deck.add( new Card(number, "Green") );
     }
+
+    // Second: Colored Cards From 1 to 9 and Wilds
+    for (int i = 1; i <= 9; i++) {
+      String number = Integer.toString(i);
+      this.deck.add( new Card(number, "Yellow") );
+      this.deck.add( new Card(number, "Red") );
+      this.deck.add( new Card(number, "Blue") );
+      this.deck.add( new Card(number, "Green") );
+
+      if (i <= 4)
+        this.deck.add( new Card("Wild", "Wild") );
+      else if (i > 4)
+        this.deck.add( new Card("+4", "Wild") );
+    }
+
+    // Third: Block, Reverse, +2; Two of each color
+    for (int i = 0; i < 4; i++) {
+      String color = "";
+      if (i == 0) color = "Yellow";
+      if (i == 1) color = "Red";
+      if (i == 2) color = "Blue";
+      if (i == 3) color = "Green";
+
+      this.deck.add( new Card("Block", color) );
+      this.deck.add( new Card("Flip", color) );
+      this.deck.add( new Card("+2", color) );
+    }
+
+
   }
 
   public void nextTurn() {

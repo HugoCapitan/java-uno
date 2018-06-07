@@ -12,6 +12,10 @@ import java.util.Scanner;
  * Uno
  */
 public class Uno {
+  RetrievePlayerSt nextPlayerSt;
+  RetrievePlayerSt prevPlayerSt;
+  RetrievePlayerSt retrievePlayerSt; // Actual RetrieveState
+
   private static Uno uno;
   private static Scanner in = new Scanner(System.in);
 
@@ -23,6 +27,11 @@ public class Uno {
   private ListIterator playersIterator = null;
 
   private Uno() {
+    // Initialize behavior states.
+    this.nextPlayerSt = new NextPlayerSt(this);
+    this.prevPlayerSt = new PrevPlayerSt(this);
+    this.retrievePlayerSt = nextPlayerSt;
+
     // Creating and shuffling deck
     this.initDeck(); 
     this.suffleDeck();
@@ -58,16 +67,16 @@ public class Uno {
     this.turn(turnPlayer);
   }
   
-  private Player getNextPlayer() {
-    // Initi iterator if doesn't exists yet or reset it when position is last.
-    if (this.playersIterator == null || !this.playersIterator.hasNext()) 
-      this.playersIterator = this.players.listIterator();
-
-    return (Player) this.playersIterator.next();
-  }
-
   public List<Player> getPlayers() { 
     return this.players; 
+  }
+
+  public ListIterator getPlayersIterator() {
+    return this.playersIterator;
+  }
+
+  public int getPlayersNum() {
+    return this.playersNum;
   }
 
   public void initDeck() {
@@ -81,7 +90,7 @@ public class Uno {
 
   public void nextTurn() {
     ++this.turnsCounter;
-    this.turn(this.getNextPlayer());
+    this.turn(this.retrievePlayer());
   }
 
   private void pass() {
@@ -112,6 +121,14 @@ public class Uno {
 
     this.stack = new LinkedList<>();
     this.stack.addFirst(firstCard);
+  }
+
+  public Player retrievePlayer() {
+    return this.retrievePlayerSt.retrievePlayer();
+  }
+
+  public void setPlayersIterator(ListIterator playersIterator) {
+    this.playersIterator = playersIterator;
   }
 
   public void suffleDeck() {

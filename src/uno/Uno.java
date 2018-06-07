@@ -134,6 +134,17 @@ public class Uno {
     if (selectedCard != null) {
       if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
         this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
+
+        if (selectedCard.getNumber().equals("Flip")) {
+          if (this.retrievePlayerSt instanceof NextPlayerSt) {
+            this.retrievePlayerSt = this.prevPlayerSt;
+            this.playersIterator.previous();
+          } else {
+            this.retrievePlayerSt = this.nextPlayerSt;
+            this.playersIterator.next();
+          }
+        }
+
         this.nextTurn();
       } else {
         // TODO: Display "this card can't be played" message

@@ -78,6 +78,14 @@ public class Uno {
     this.turn(turnPlayer);
   }
 
+  public List<Card> eatTwice(Player turnPlayer) {
+    ArrayList<Card> playerNewCards = new ArrayList<Card>(this.deck.subList(this.deck.size() - 2, this.deck.size()));
+    turnPlayer.addCards(playerNewCards);
+    this.deck.subList(this.deck.size() - 3, this.deck.size()).clear();
+
+    return playerNewCards;
+  }
+
   public LinkedList<Card> getDeck() {
     return this.deck;
   } 

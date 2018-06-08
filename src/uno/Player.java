@@ -29,7 +29,7 @@ public class Player {
     int startingIndex = this.cards.size();
 
     for (int i = startingIndex; i < startingIndex + cards.size(); i++) {
-      Card cardToAdd = cards.get(i);
+      Card cardToAdd = cards.get(i - startingIndex);
       this.cards.put(qwerty.substring(i, i + 1), cardToAdd);
     }
   }

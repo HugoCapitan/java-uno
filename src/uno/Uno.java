@@ -151,34 +151,7 @@ public class Uno {
   }
 
   public void playCard(Player turnPlayer, String selectionChar) {
-    Card selectedCard = turnPlayer.getCards().get(selectionChar);
-    
-    if (selectedCard != null) {
-      if (this.turnsCounter == 1 || this.stack.getFirst().isCompatible(selectedCard)) {
-        this.stack.addFirst( turnPlayer.pickCard(selectionChar) );
-
-        if (selectedCard.getNumber().equals("Flip")) {
-          if (this.retrievePlayerSt instanceof NextPlayerSt) {
-            this.retrievePlayerSt = this.prevPlayerSt;
-            this.playersIterator.previous();
-          } else {
-            this.retrievePlayerSt = this.nextPlayerSt;
-            this.playersIterator.next();
-          }
-        }
-
-        if (selectedCard.getNumber().equals("Block")) // Pass the next player
-          this.retrievePlayer();
-
-        this.nextTurn();
-      } else {
-        // TODO: Display "this card can't be played" message
-        this.turn(turnPlayer);
-      }
-    } else {
-      // TODO: Display "this card doesn't exists" message
-      this.turn(turnPlayer);
-    }
+    this.turnSt.playCard(turnPlayer, selectionChar);
   }
 
   public void refillDeck() {

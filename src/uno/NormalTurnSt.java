@@ -39,11 +39,14 @@ public class NormalTurnSt implements TurnSt {
             uno.retrievePlayer();
             break;
           case "+2":
-          case "+4":
+            uno.turnSt = uno.postDrawTurnSt;
+            break;
           case "Wild":
             uno.setWildColor(Printer.askForWildColor());
             uno.turnSt = uno.postWildTurnSt;
             break;
+          case "+4":
+
           default:
             break;
         }

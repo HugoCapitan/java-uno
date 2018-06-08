@@ -15,7 +15,7 @@ public class Card {
 
   public boolean isCompatible(Card comparator) {
     return (
-      // comparator.getColor().equals("wild") ||
+      comparator.getColor().equals("Wild") ||
       comparator.getColor().equals(this.color) || 
       comparator.getNumber().equals(this.number)
     );

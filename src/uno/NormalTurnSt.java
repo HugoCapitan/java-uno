@@ -25,18 +25,28 @@ public class NormalTurnSt implements TurnSt {
       if (turnsCounter == 1 || stack.getFirst().isCompatible(selectedCard)) {
         stack.addFirst( turnPlayer.pickCard(selectionChar) );
 
-        if (selectedCard.getNumber().equals("Flip")) {
-          if (uno.retrievePlayerSt instanceof NextPlayerSt) {
-            uno.retrievePlayerSt = uno.prevPlayerSt;
-            playersIterator.previous();
-          } else {
-            uno.retrievePlayerSt = uno.nextPlayerSt;
-            playersIterator.next();
-          }
+        switch(selectedCard.getNumber()) {
+          case "Flip":
+            if (uno.retrievePlayerSt instanceof NextPlayerSt) {
+              uno.retrievePlayerSt = uno.prevPlayerSt;
+              playersIterator.previous();
+            } else {
+              uno.retrievePlayerSt = uno.nextPlayerSt;
+              playersIterator.next();
+            }
+            break;
+          case "Block":
+            uno.retrievePlayer();
+            break;
+          case "+2":
+          case "+4":
+          case "Wild":
+            uno.setWildColor(Printer.askForWildColor());
+            uno.turnSt = uno.postWildTurnSt;
+            break;
+          default:
+            break;
         }
-
-        if (selectedCard.getNumber().equals("Block")) // Pass the next player
-          uno.retrievePlayer();
 
         uno.nextTurn();
       } else {

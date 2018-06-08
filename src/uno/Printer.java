@@ -10,6 +10,19 @@ import java.util.Scanner;
 public class Printer {
   private static Scanner in = new Scanner(System.in);
   private static String qwerty = "qwertyuiopasdfghjklzxcvbnm";
+  private static String upperQwerty = "QWERTYUIOPASDFGHJKLZXCVBNM";
+
+  public static String askForWildColor() {
+    String color; 
+
+    for (int i = 0; i < 10; i++) { System.out.println(); }
+    System.out.println(printCentered("What color?!"));
+    System.out.print(printCentered("> "));
+
+    color = in.next();
+
+    return upperCaseFirst(color);
+  }
 
   public static void printCard(Card card) {
     System.out.println( printCentered("+--------+ ") );
@@ -196,4 +209,15 @@ public class Printer {
     
     System.out.print( printCentered("> ") );
   }
+
+
+  public static String upperCaseFirst(String value) {
+
+    // Convert String to char array.
+    char[] array = value.toCharArray();
+    // Modify first element in array.
+    array[0] = Character.toUpperCase(array[0]);
+    // Return string.
+    return new String(array);
+}
 }

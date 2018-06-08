@@ -16,6 +16,11 @@ public class Uno {
   RetrievePlayerSt prevPlayerSt;
   RetrievePlayerSt retrievePlayerSt; // Actual RetrieveState
 
+  TurnSt normalTurnSt;
+  TurnSt postDrawTurnSt;
+  TurnSt postWildTurnSt;
+  TurnSt turnSt;
+
   private static Uno uno;
   private static Scanner in = new Scanner(System.in);
 
@@ -31,6 +36,11 @@ public class Uno {
     this.nextPlayerSt = new NextPlayerSt(this);
     this.prevPlayerSt = new PrevPlayerSt(this);
     this.retrievePlayerSt = nextPlayerSt;
+
+    this.normalTurnSt = new NormalTurnSt(this);
+    this.postDrawTurnSt = new PostDrawTurnSt(this);
+    this.postWildTurnSt = new PostWildTurnSt(this);
+    this.turnSt = normalTurnSt;
 
     // Creating and shuffling deck
     this.initDeck(); 
@@ -62,10 +72,14 @@ public class Uno {
     this.players.add(playerNumber, newPlayer);
   }
 
-  private void eatCard(Player turnPlayer) {
+  public void eatCard(Player turnPlayer) {
     turnPlayer.addCard(this.deck.removeLast());
     this.turn(turnPlayer);
   }
+
+  public LinkedList<Card> getDeck() {
+    return this.deck;
+  } 
   
   public List<Player> getPlayers() { 
     return this.players; 
@@ -77,6 +91,14 @@ public class Uno {
 
   public int getPlayersNum() {
     return this.playersNum;
+  }
+
+  public LinkedList<Card> getStack() {
+    return this.stack;
+  }
+  
+  public int getTurnsCounter() {
+    return this.turnsCounter;
   }
 
   public void initDeck() {
@@ -124,11 +146,11 @@ public class Uno {
     this.turn(this.retrievePlayer());
   }
 
-  private void pass() {
+  public void pass() {
     this.nextTurn();
   }
 
-  private void playCard(Player turnPlayer, String selectionChar) {
+  public void playCard(Player turnPlayer, String selectionChar) {
     Card selectedCard = turnPlayer.getCards().get(selectionChar);
     
     if (selectedCard != null) {
@@ -188,28 +210,8 @@ public class Uno {
     }
   }
   
-  private void turn(Player turnPlayer) {
-    String selectionChar;
-
-    if (this.deck.size() == 0) 
-      this.refillDeck();
-
-    if (this.turnsCounter == 1)
-      Printer.printFirstTurn(turnPlayer);
-    else   
-      Printer.printTurn(turnPlayer, this.stack.getFirst());
-
-    // Reading user input
-    selectionChar = in.next();
-
-    if (selectionChar.equals("pass") && this.turnsCounter > 1) 
-      this.pass();
-    else if (selectionChar.equals("eat"))
-      this.eatCard(turnPlayer);
-    else if (selectionChar.length() == 1)
-      this.playCard(turnPlayer, selectionChar);
-    else 
-      this.turn(turnPlayer);
+  public void turn(Player turnPlayer) {
+    this.turnSt.turn(turnPlayer);
   }
 
 

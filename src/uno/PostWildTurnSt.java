@@ -9,6 +9,11 @@ public class PostWildTurnSt implements TurnSt {
   public PostWildTurnSt (Uno uno) {
     this.uno = uno;
   }
+
+  @Override
+  public void playCard(Player turnPlayer, String selectionChar) {
+    
+  }
   
   @Override
   public void turn(Player turnPlayer) {

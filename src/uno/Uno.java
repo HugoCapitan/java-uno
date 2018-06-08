@@ -26,6 +26,7 @@ public class Uno {
 
   private int playersNum;
   private int turnsCounter;
+  private String wildColor;
   private LinkedList<Card> deck = new LinkedList<>();
   private LinkedList<Card> stack = new LinkedList<>();
   private List<Player> players = new ArrayList<>();
@@ -101,6 +102,10 @@ public class Uno {
     return this.turnsCounter;
   }
 
+  public String getWildColor() {
+    return this.wildColor;
+  }
+
   public void initDeck() {
     // First: Colored Cards From 0 to 9
     for (int i = 0; i <= 9; i++) {
@@ -170,6 +175,9 @@ public class Uno {
   public void setPlayersIterator(ListIterator playersIterator) {
     this.playersIterator = playersIterator;
   }
+   public void setWildColor(String color) {
+     this.wildColor = color;
+   }
 
   public void suffleDeck() {
     int n = this.deck.size();

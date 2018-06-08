@@ -145,6 +145,9 @@ public class Uno {
           }
         }
 
+        if (selectedCard.getNumber().equals("Block")) // Pass the next player
+          this.retrievePlayer();
+
         this.nextTurn();
       } else {
         // TODO: Display "this card can't be played" message

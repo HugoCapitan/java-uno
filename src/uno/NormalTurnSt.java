@@ -17,47 +17,17 @@ public class NormalTurnSt implements TurnSt {
   public void playCard(Player turnPlayer, String selectionChar) {
     int turnsCounter = uno.getTurnsCounter();
     Card selectedCard = turnPlayer.getCards().get(selectionChar);
-    LinkedList<Card> deck = uno.getDeck();
     LinkedList<Card> stack = uno.getStack();
-    ListIterator playersIterator = uno.getPlayersIterator();
     
-    if (selectedCard != null) {
-      if (turnsCounter == 1 || stack.getFirst().isCompatible(selectedCard)) {
-        stack.addFirst( turnPlayer.pickCard(selectionChar) );
+    if (selectedCard != null && (turnsCounter == 1 || stack.getFirst().isCompatible(selectedCard))) {
+      stack.addFirst( turnPlayer.pickCard(selectionChar) );
 
-        switch(selectedCard.getNumber()) {
-          case "Flip":
-            if (uno.retrievePlayerSt instanceof NextPlayerSt) {
-              uno.retrievePlayerSt = uno.prevPlayerSt;
-              playersIterator.previous();
-            } else {
-              uno.retrievePlayerSt = uno.nextPlayerSt;
-              playersIterator.next();
-            }
-            break;
-          case "Block":
-            uno.retrievePlayer();
-            break;
-          case "+2":
-          case "+4":
-          case "Wild":
-            uno.setWildColor(Printer.askForWildColor());
-            uno.turnSt = uno.postWildTurnSt;
-            break;
-          default:
-            break;
-        }
+      uno.reactToCard(selectedCard);
 
-        uno.nextTurn();
-      } else {
-        // TODO: Display "this card can't be played" message
-        uno.turn(turnPlayer);
-      }
+      uno.nextTurn();
     } else {
-      // TODO: Display "this card doesn't exists" message
       uno.turn(turnPlayer);
     }
-    
   }
 
   @Override

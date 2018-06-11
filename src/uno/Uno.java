@@ -19,6 +19,7 @@ public class Uno {
   TurnSt normalTurnSt;
   TurnSt postDrawTurnSt;
   TurnSt postWildTurnSt;
+  TurnSt postDrawWildTurnSt;
   TurnSt turnSt;
 
   private static Uno uno;
@@ -26,6 +27,7 @@ public class Uno {
 
   private int playersNum;
   private int turnsCounter;
+  private int sumToDraw;
   private String wildColor;
   private LinkedList<Card> deck = new LinkedList<>();
   private LinkedList<Card> stack = new LinkedList<>();
@@ -41,6 +43,7 @@ public class Uno {
     this.normalTurnSt = new NormalTurnSt(this);
     this.postDrawTurnSt = new PostDrawTurnSt(this);
     this.postWildTurnSt = new PostWildTurnSt(this);
+    this.postDrawWildTurnSt = new PostDrawWildTurnSt(this);
     this.turnSt = normalTurnSt;
 
     // Creating and shuffling deck
@@ -52,30 +55,35 @@ public class Uno {
     this.playersNum = in.nextInt();
 
     for (int i = 0; i < this.playersNum; i++) { 
-      this.addPlayer(); 
+      Player newPlayer;
+      int playerNumber = this.players.size();
+      String playerName;
+      List<Card> playerCards;
+      
+      playerName = Printer.printNamePetition(playerNumber);
+      playerCards = new ArrayList<Card>(this.deck.subList(0, 7));
+
+      newPlayer = new Player(playerName, playerCards);
+      this.deck.subList(0, 7).clear(); // Remove player cards from deck.    
+      
+      this.players.add(playerNumber, newPlayer);
     }
 
     this.nextTurn();
   }
 
-  public void addPlayer() {
-    Player newPlayer;
-    int playerNumber = this.players.size();
-    String playerName;
-    List<Card> playerCards;
-    
-    playerName = Printer.printNamePetition(playerNumber);
-    playerCards = new ArrayList<Card>(this.deck.subList(0, 7));
-
-    newPlayer = new Player(playerName, playerCards);
-    this.deck.subList(0, 7).clear(); // Remove player cards from deck.    
-    
-    this.players.add(playerNumber, newPlayer);
-  }
-
   public void eatCard(Player turnPlayer) {
     turnPlayer.addCard(this.deck.removeLast());
     this.turn(turnPlayer);
+  }
+
+  public void eatSum(Player turnPlayer) {
+    turnPlayer.addCards(
+      (List<Card>) deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()) 
+    );
+    deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()).clear();
+    this.resetSumToDraw();
+    this.turnSt = this.normalTurnSt;
   }
 
   public LinkedList<Card> getDeck() {
@@ -96,6 +104,10 @@ public class Uno {
 
   public LinkedList<Card> getStack() {
     return this.stack;
+  }
+  
+  public int getSumToDraw() {
+    return this.sumToDraw;
   }
   
   public int getTurnsCounter() {
@@ -143,7 +155,6 @@ public class Uno {
       this.deck.add( new Card("+2", color) );
     }
 
-
   }
 
   public void nextTurn() {
@@ -159,6 +170,33 @@ public class Uno {
     this.turnSt.playCard(turnPlayer, selectionChar);
   }
 
+  public void reactToCard(Card card) {
+    switch(card.getNumber()) {
+      case "Flip":
+        if (this.retrievePlayerSt instanceof NextPlayerSt)
+          this.retrievePlayerSt = this.prevPlayerSt;
+        else 
+          this.retrievePlayerSt = this.nextPlayerSt;
+      case "Block":
+        this.retrievePlayerSt(); // let above case fall to put iterator in the right place;
+        break;
+      case "+2":
+        this.turnSt = this.postDrawTurnSt;
+        this.sumToDraw += 2;
+        break;
+      case "+4":
+        this.setWildColor(Printer.askForWildColor);
+        this.sumToDraw += 4;
+        this.turnSt = this.postDrawWildTurnSt;
+        break;
+      case "Wild":
+        this.setWildColor(Printer.askForWildColor);
+        this.turnSt = this.postWildTurnSt;
+        break;
+      default:
+    }
+  }
+
   public void refillDeck() {
     Card firstCard = this.stack.removeFirst();
     this.deck.addAll(this.stack);
@@ -166,6 +204,10 @@ public class Uno {
 
     this.stack = new LinkedList<>();
     this.stack.addFirst(firstCard);
+  }
+
+  public void resetSumToDraw() {
+    this.sumToDraw = 0;
   }
 
   public Player retrievePlayer() {

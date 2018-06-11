@@ -77,14 +77,6 @@ public class Uno {
     this.turn(turnPlayer);
   }
 
-<<<<<<< HEAD
-  public List<Card> eatTwice(Player turnPlayer) {
-    ArrayList<Card> playerNewCards = new ArrayList<Card>(this.deck.subList(this.deck.size() - 2, this.deck.size()));
-    turnPlayer.addCards(playerNewCards);
-    this.deck.subList(this.deck.size() - 3, this.deck.size()).clear();
-
-    return playerNewCards;
-=======
   public void eatSum(Player turnPlayer) {
     turnPlayer.addCards(
       (List<Card>) deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()) 
@@ -92,7 +84,6 @@ public class Uno {
     deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()).clear();
     this.resetSumToDraw();
     this.turnSt = this.normalTurnSt;
->>>>>>> betterPostDraw
   }
 
   public LinkedList<Card> getDeck() {
@@ -187,19 +178,19 @@ public class Uno {
         else 
           this.retrievePlayerSt = this.nextPlayerSt;
       case "Block":
-        this.retrievePlayerSt(); // let above case fall to put iterator in the right place;
+        this.retrievePlayer(); // let above case fall to put iterator in the right place;
         break;
       case "+2":
         this.turnSt = this.postDrawTurnSt;
         this.sumToDraw += 2;
         break;
       case "+4":
-        this.setWildColor(Printer.askForWildColor);
+        this.setWildColor(Printer.askForWildColor());
         this.sumToDraw += 4;
         this.turnSt = this.postDrawWildTurnSt;
         break;
       case "Wild":
-        this.setWildColor(Printer.askForWildColor);
+        this.setWildColor(Printer.askForWildColor());
         this.turnSt = this.postWildTurnSt;
         break;
       default:

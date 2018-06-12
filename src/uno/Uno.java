@@ -78,12 +78,22 @@ public class Uno {
   }
 
   public void eatSum(Player turnPlayer) {
+    Printer.printCardsSet(
+      deck.subList(this.deck.size() - this.sumToDraw, this.deck.size())
+    );
+
+    try {
+      System.in.read();
+    } catch (Exception e) {
+    
+    }
+
     turnPlayer.addCards(
       (List<Card>) deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()) 
     );
     deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()).clear();
     this.resetSumToDraw();
-    this.turnSt = this.normalTurnSt;
+    this.turn(turnPlayer);
   }
 
   public LinkedList<Card> getDeck() {
@@ -177,7 +187,10 @@ public class Uno {
           this.retrievePlayerSt = this.prevPlayerSt;
         else 
           this.retrievePlayerSt = this.nextPlayerSt;
+        
+        this.turnSt = this.normalTurnSt;
       case "Block":
+        this.turnSt = this.normalTurnSt;
         this.retrievePlayer(); // let above case fall to put iterator in the right place;
         break;
       case "+2":
@@ -194,6 +207,7 @@ public class Uno {
         this.turnSt = this.postWildTurnSt;
         break;
       default:
+        break;
     }
   }
 

@@ -46,13 +46,13 @@ public class PostDrawWildTurnSt implements TurnSt {
     if (deck.size() == 0) 
       uno.refillDeck();
 
-    Printer.printTurn(turnPlayer, stack.getFirst());
+    Printer.printPostDrawTurn(turnPlayer, stack.getFirst(), uno.getSumToDraw(), uno.getWildColor());
 
     // Reading user input
     selectionChar = in.next();
 
     if (selectionChar.equals("eat"))
-      uno.eatCard(turnPlayer); // TODO: eatsumdraw
+      uno.eatSum(turnPlayer); // TODO: eatsumdraw
     else if (selectionChar.length() == 1)
       uno.playCard(turnPlayer, selectionChar);
     else 

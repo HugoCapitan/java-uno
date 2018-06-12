@@ -47,7 +47,7 @@ public class PostDrawTurnSt implements TurnSt{
     if (deck.size() == 0) 
       uno.refillDeck();
 
-    Printer.printTurn(turnPlayer, stack.getFirst());
+    Printer.printPostDrawTurn(turnPlayer, stack.getFirst(), uno.getSumToDraw(), stack.getFirst().getColor());
 
     // Reading user input
     selectionChar = in.next();

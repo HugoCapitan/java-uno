@@ -41,7 +41,7 @@ public class PostWildTurnSt implements TurnSt {
     if (deck.size() == 0) 
       uno.refillDeck();
 
-    Printer.printTurn(turnPlayer, stack.getFirst());
+    Printer.printPostWildTurn(turnPlayer, stack.getFirst(), uno.getWildColor());
 
     // Reading user input
     selectionChar = in.next();

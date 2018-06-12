@@ -35,6 +35,11 @@ public class PostDrawTurnSt implements TurnSt{
 
   @Override
   public void turn(Player turnPlayer) {
+    if (uno.getSumToDraw() == 0) {
+      uno.turnSt = uno.normalTurnSt;
+      uno.nextTurn();
+    }
+
     String selectionChar;
     LinkedList<Card> deck = uno.getDeck();
     LinkedList<Card> stack = uno.getStack();

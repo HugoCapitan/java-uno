@@ -11,4 +11,4 @@ Not sure if fun or frustrating since all the other players will be able to see y
 - Find more usable way of displaying help.
 - Discuss if keep 'pass' option.
 - Implement cursor for playing cards, move the arrows to move between cards and press enter to select and play.
-
+- Implement LAN mode!

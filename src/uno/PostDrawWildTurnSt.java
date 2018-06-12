@@ -14,11 +14,31 @@ public class PostDrawWildTurnSt implements TurnSt {
 
   @Override
   public void playCard(Player turnPlayer, String selectionChar) {
+    int turnsCounter = uno.getTurnsCounter();
+    Card selectedCard = turnPlayer.getCards().get(selectionChar);
+    LinkedList<Card> stack = uno.getStack();
     
+    if (selectedCard != null && selectedCard.getNumber().equals("+4")) {
+      stack.addFirst( turnPlayer.pickCard(selectionChar) );
+
+      uno.reactToCard(selectedCard);
+
+      uno.nextTurn();
+
+    } else {
+      // TODO: Display "this card doesn't exists" message
+      uno.turn(turnPlayer);
+    }
+           
   }
   
   @Override
   public void turn(Player turnPlayer) {
+    if (uno.getSumToDraw() == 0) {
+      uno.turnSt = uno.postWildTurnSt;
+      uno.nextTurn();
+    }
+
     String selectionChar;
     LinkedList<Card> deck = uno.getDeck();
     LinkedList<Card> stack = uno.getStack();

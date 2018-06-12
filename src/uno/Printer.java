@@ -34,6 +34,16 @@ public class Printer {
     System.out.println( printCentered("+--------+ ") );
   }
 
+  public static void printWildCard(Card card, String color) {
+    System.out.println( printCentered("+--------+ ") );
+    System.out.println( printCentered( printSpecialRow("Top", card.getNumber()) + " " ) );
+    System.out.println( printCentered("|        | ") );
+    System.out.println( printCentered( printSpecialRow("Middle", color) + " " ) );
+    System.out.println( printCentered("|        | ") );
+    System.out.println( printCentered( printSpecialRow("Bottom", card.getNumber()) + " ") );
+    System.out.println( printCentered("+--------+ ") );
+  }
+
   public static void printCardsSet(List<Card> cards) {
     String tops = "";
     String middles = "";
@@ -61,7 +71,7 @@ public class Printer {
   }
 
   public static String printCentered(String centerText) {
-    return printMultiple(" ", (128 - centerText.length()) / 2) + centerText;
+    return printMultiple(" ", (190 - centerText.length()) / 2) + centerText;
   }
 
   public static void printFirstTurn(Player player) {
@@ -94,7 +104,7 @@ public class Printer {
     
     System.out.println();
     System.out.println(
-      "--------------------------------------------------------------------------------------------------------------------------------"
+      "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
     );
     for (int i = 0; i < 10; i++) { System.out.println(); }
     System.out.println( printCentered("UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN     OOOOOOOOO     ") );
@@ -118,7 +128,7 @@ public class Printer {
       "Adjust the screen height and width till the two lines of dashes are visible and they dont break (Press enter when done)"
     );
     System.out.print(
-      "--------------------------------------------------------------------------------------------------------------------------------"
+      "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
     );
     
     try {
@@ -210,6 +220,72 @@ public class Printer {
     System.out.print( printCentered("> ") );
   }
 
+  public static void printPostWildTurn(Player player, Card card, String wildColor) {
+    System.out.print("\033[H\033[2J");
+    
+    System.out.println();
+    System.out.println( printCentered("-_-_-_ It's your turn, " + player.getName() + "! _-_-_-") ); 
+    System.out.println( printCentered("      -________________" + printMultiple("_", player.getName().length()) + "_-      ") ); 
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+
+    System.out.println( printCentered("     Last played card     ") );
+    System.out.println( printCentered("~~+--------------------+~~") );
+    System.out.println();
+    printWildCard(card, wildColor);
+
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("     Your cards     ") );
+    System.out.println( printCentered("~~+--------------+~~") );
+    System.out.println();
+
+    printCardsSet( player.getOrderedCards() );
+
+    
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("+~: HELP :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("|  - To eat type 'eat'                           |") );
+    System.out.println( printCentered("|  - To skip type 'pass'                         |") );
+    System.out.println( printCentered("|  - To play a card type the letter below it     |") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    for (int i = 0; i < 1; i++) { System.out.println(); }
+    
+    System.out.print( printCentered("> ") );
+  }
+
+  public static void printPostDrawTurn(Player player, Card card, int howManyToEat, String wildColor) {
+    System.out.print("\033[H\033[2J");
+    
+    System.out.println();
+    System.out.println( printCentered("-_-_-_ It's your turn, " + player.getName() + "! _-_-_-") ); 
+    System.out.println( printCentered("      -________________" + printMultiple("_", player.getName().length()) + "_-      ") ); 
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+
+    System.out.println( printCentered("     Last played card     ") );
+    System.out.println( printCentered("~~+--------------------+~~") );
+    System.out.println();
+    printWildCard(card, wildColor);
+
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("     Your cards     ") );
+    System.out.println( printCentered("~~+--------------+~~") );
+    System.out.println();
+
+    printCardsSet( player.getOrderedCards() );
+
+    
+    for (int i = 0; i < 2; i++) { System.out.println(); }
+    System.out.println( printCentered("+~: HELP :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("|  You can either play another " + card.getNumber() + " card or        |") );
+    System.out.println( printCentered("|  type 'eat' to eat " + howManyToEat + " cards                     |") );
+    System.out.println( printCentered("|                                                |") );
+    System.out.println( printCentered("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+") );
+    for (int i = 0; i < 1; i++) { System.out.println(); }
+    
+    System.out.print( printCentered("> ") );
+  }
 
   public static String upperCaseFirst(String value) {
 

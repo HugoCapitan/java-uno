@@ -24,7 +24,7 @@ public class PostDrawTurnSt implements TurnSt{
 
       uno.reactToCard(selectedCard);
 
-      uno.nextTurn();
+      uno.nextTurn(turnPlayer);
 
     } else {
       // TODO: Display "this card doesn't exists" message
@@ -37,7 +37,7 @@ public class PostDrawTurnSt implements TurnSt{
   public void turn(Player turnPlayer) {
     if (uno.getSumToDraw() == 0) {
       uno.turnSt = uno.normalTurnSt;
-      uno.nextTurn();
+      uno.nextTurn(turnPlayer);
     }
 
     String selectionChar;

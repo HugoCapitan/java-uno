@@ -25,7 +25,7 @@ public class PostWildTurnSt implements TurnSt {
 
       uno.reactToCard(selectedCard);
 
-      uno.nextTurn();
+      uno.nextTurn(turnPlayer);
     } else {
       uno.turn(turnPlayer);
     }
@@ -47,7 +47,7 @@ public class PostWildTurnSt implements TurnSt {
     selectionChar = in.next();
 
     if (selectionChar.equals("pass")) 
-      uno.pass();
+      uno.pass(turnPlayer);
     else if (selectionChar.equals("eat"))
       uno.eatCard(turnPlayer);
     else if (selectionChar.length() == 1)

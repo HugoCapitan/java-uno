@@ -69,7 +69,7 @@ public class Uno {
       this.players.add(playerNumber, newPlayer);
     }
 
-    this.nextTurn();
+    this.nextTurn(this.players.get(0));
   }
 
   public void eatCard(Player turnPlayer) {
@@ -94,6 +94,10 @@ public class Uno {
     deck.subList(this.deck.size() - this.sumToDraw, this.deck.size()).clear();
     this.resetSumToDraw();
     this.turn(turnPlayer);
+  }
+
+  public void endGame(Player winner) {
+    Printer.printEnd(winner);
   }
 
   public LinkedList<Card> getDeck() {
@@ -167,13 +171,18 @@ public class Uno {
 
   }
 
-  public void nextTurn() {
-    ++this.turnsCounter;
-    this.turn(this.retrievePlayer());
+  public void nextTurn(Player actualPlayer) {
+    // Checking player's amount of cards before moving on
+    if (actualPlayer.getOrderedCards().size() == 0) {
+      this.endGame(actualPlayer);
+    } else {
+      ++this.turnsCounter;
+      this.turn(this.retrievePlayer());
+    }
   }
 
-  public void pass() {
-    this.nextTurn();
+  public void pass(Player actualPlayer) {
+    this.nextTurn(actualPlayer);
   }
 
   public void playCard(Player turnPlayer, String selectionChar) {

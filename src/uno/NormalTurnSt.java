@@ -24,7 +24,7 @@ public class NormalTurnSt implements TurnSt {
 
       uno.reactToCard(selectedCard);
 
-      uno.nextTurn();
+      uno.nextTurn(turnPlayer);
     } else {
       uno.turn(turnPlayer);
     }
@@ -49,7 +49,7 @@ public class NormalTurnSt implements TurnSt {
     selectionChar = in.next();
 
     if (selectionChar.equals("pass") && turnsCounter > 1) 
-      uno.pass();
+      uno.pass(turnPlayer);
     else if (selectionChar.equals("eat"))
       uno.eatCard(turnPlayer);
     else if (selectionChar.length() == 1)

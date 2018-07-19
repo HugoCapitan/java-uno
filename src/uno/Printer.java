@@ -74,6 +74,19 @@ public class Printer {
     return printMultiple(" ", (190 - centerText.length()) / 2) + centerText;
   }
 
+  public static void printEnd(Player winner) {
+    System.out.print("\033[H\033[2J");
+    System.out.println();
+
+    System.out.println( printCentered("You Won, " + winner.getName() + "!!") );
+
+    try {
+      System.in.read();
+    } catch (Exception e) {
+    
+    }
+  }
+
   public static void printFirstTurn(Player player) {
     System.out.print("\033[H\033[2J");
     System.out.println();

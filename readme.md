@@ -6,7 +6,6 @@ Not sure if fun or frustrating since all the other players will be able to see y
 
 ## TODOs:
 
-- Handle when someone wins
 - Remove letters of cards just eaten by effect of a draw card (since these are not playable the first time they are displayed).
 - Handle printing two rows of cards.
 - Find more usable way of displaying help.
